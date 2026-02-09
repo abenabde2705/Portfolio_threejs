@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-amrou",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "watch": "vite build --watch"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.182.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tech-stack-icons": "^3.5.8",
+    "three": "^0.182.0"
+  }
+}

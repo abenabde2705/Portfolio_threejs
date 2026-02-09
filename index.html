@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amrou Ben Abdessalem - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo">AB</a>
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link">Accueil</a></li>
+          <li><a href="#about" class="nav-link">À propos</a></li>
+          <li><a href="#experience" class="nav-link">Expériences</a></li>
+          <li><a href="#skills" class="nav-link">Compétences</a></li>
+          <li><a href="#projects" class="nav-link">Projets</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="home" class="hero-section">
+      <canvas id="threejs-canvas"></canvas>
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="greeting">Salut, je suis</span>
+          <h1 class="name">Amrou Ben Abdessalem</h1>
+          <p class="tagline">Développeur full-stack en alternance - Disponible en CDI</p>
+          <p class="description">Je conçois et je développe des applications web innovantes et performantes.
+            <br>De l'idée jusqu'au déploiement</p>
+          </p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Me contacter</a>
+            <a href="#projects" class="btn btn-secondary">Voir mes projets</a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Défiler</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="container">
+        <h2 class="section-title" data-animate>À propos de moi</h2>
+        <div class="about-content">
+          <div class="about-text" data-animate>
+            <p>Je suis un développeur full-stack passionné avec une expertise dans les technologies web modernes. Je me spécialise dans la création d'applications web interactives, performantes et visuellement impressionnantes.</p>
+            <p>J'ai eu l'opportunité de travailler chez AXA France dans le secteur téléphonie et service client, où j'ai contribué au pilotage et à la qualité d'appels en utilisant Genesys Cloud comme CRM. Cette expérience m'a permis de développer des compétences en gestion de la qualité et en optimisation des processus clients.</p>
+            <p>Avec une solide base en développement frontend et backend, je donne vie aux idées grâce à un code propre et des solutions innovantes.</p>
+          </div>
+          <div class="about-stats">
+            <div class="stat-card" data-animate>
+              <span class="stat-number" data-target="2">0</span>
+              <span class="stat-label">Années d'expérience</span>
+            </div>
+            <div class="stat-card" data-animate>
+              <span class="stat-number" data-target="8">0</span>
+              <span class="stat-label">Projets académiques et personnels réalisés</span>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section experience-section">
+      <div class="container">
+        <h2 class="section-title" data-animate>Parcours & Expériences</h2>
+        <div class="timeline">
+          
+          <div class="timeline-item" data-animate>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2024 - Présent</div>
+              <h3>Développeur Full-Stack en Alternance</h3>
+              <h4>AXA France - Paris</h4>
+              <p>Développement d'applications web en alternance chez AXA France. Contribution au pilotage et à la qualité d'appels dans le secteur téléphonie et service client. Utilisation de Genesys Cloud comme CRM pour optimiser les processus clients et améliorer la satisfaction client.</p>
+              <div class="timeline-tags">
+                <span>Genesys Cloud</span>
+                <span>Service Client</span>
+                <span>Dotnet C#</span>
+                <span>React</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item" data-animate>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2023</div>
+              <h3>Stage Développeur Web</h3>
+              <h4>Wyze Academy</h4>
+              <p>Stage de développement web où j'ai acquis les fondamentaux du développement frontend et backend. Participation à des projets concrets et apprentissage des bonnes pratiques de développement web moderne.</p>
+              <div class="timeline-tags">
+                <span>React</span>
+                <span>ExpressJs</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <h2 class="section-title" data-animate>Compétences & Technologies</h2>
+        <div class="skills-grid">
+          <div class="skill-category" data-animate>
+            <h3>Frontend</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">Vue.js</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">Three.js</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Tailwind CSS</span>
+            </div>
+          </div>
+          <div class="skill-category" data-animate>
+            <h3>Backend</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Dotnet</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Express</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">REST APIs</span>
+            </div>
+          </div>
+          <div class="skill-category" data-animate>
+            <h3>Bases de données</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">SQL Server</span>
+            </div>
+          </div>
+          <div class="skill-category" data-animate>
+            <h3>Outils & Autres</h3>
+            <div class="skill-tags">
+              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Figma</span>
+              <span class="skill-tag">CI/CD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <h2 class="section-title" data-animate>Projets en vedette</h2>
+        <div class="projects-grid">
+         <div class="project-card" data-animate>
+  <a href="https://maxai-mds.fr/" target="_blank" class="project-image">
+    <img src="/Capture.PNG" alt="MaxAI Platform">
+    <div class="project-overlay">
+      <span class="view-project">Voir le projet →</span>
+    </div>
+  </a>
+  <div class="project-info">
+    <h3>MaxAI</h3>
+    <p>Plateforme de coaching psychologique IA avec chatbot intelligent, système d'abonnement premium et tableau de bord analytique. 
+      Architecture full-stack React/Node.js avec PostgreSQL.</p> 
+    <div class="project-tags">
+      <span>React</span>
+      <span>Node.js</span>
+      <span>PostgreSQL</span>
+    </div>
+  </div>
+</div>
+          <div class="project-card" data-animate>
+            <div class="project-image">
+              <div class="project-overlay">
+                <span class="view-project">Voir le projet →</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Site Portfolio 3D</h3>
+              <p>Portfolio interactif avec animations Three.js et effets WebGL</p>
+              <div class="project-tags">
+                <span>Three.js</span>
+                <span>TypeScript</span>
+                <span>GSAP</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" data-animate>
+            <div class="project-image">
+              <div class="project-overlay">
+                <span class="view-project">Voir le projet →</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <h3>Plateforme Nationale de Stages</h3>
+              <p>Application web de mise en relation entre lycées, étudiants et entreprises pour la recherche et le suivi de stages. Intégration du Design System de l'État (DSFR) et API sécurisées pour la gestion des profils, offres et candidatures.</p>
+              <div class="project-tags">
+                <span>Node.js</span>
+                <span>DSFR</span>
+                <span>API REST</span>
+                <span>PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <h2 class="section-title" data-animate>Contactez-moi</h2>
+        <div class="contact-content">
+          <div class="contact-info" data-animate>
+            <h3>Travaillons ensemble</h3>
+            <p>Vous avez un projet en tête ? Discutons de la façon dont nous pouvons collaborer pour donner vie à vos idées.</p>
+            <div class="contact-links">
+              <a href="mailto:amrou.benabdessalem.pro@gmail.com" class="contact-link">
+                <span class="icon">✉</span>
+                <span>amrou.benabdessalem.pro@gmail.com</span>
+              </a>
+              <a href="tel:+33668868390" class="contact-link">
+                <span class="icon">📱</span>
+                <span>+33 6 68 86 83 90</span>
+              </a>
+              <a href="#" class="contact-link">
+                <span class="icon">📍</span>
+                <span>Paris, France</span>
+              </a>
+            </div>
+            <div class="social-links">
+              <a href="https://github.com/abenabde2705" target="_blank" class="social-link social-icon-link" data-tech="GitHub">
+                <span class="social-icon-container"></span>
+                <span>GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/amrou-ben-abdessalem-8b4324294/" target="_blank" class="social-link social-icon-link" data-tech="LinkedIn">
+                <span class="social-icon-container"></span>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+          <form class="contact-form" id="contactForm" data-animate>
+            <div class="form-group">
+              <input type="text" id="name" name="name" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Votre email" required>
+            </div>
+            <div class="form-group">
+              <input type="text" id="subject" name="subject" placeholder="Sujet" required>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" rows="5" placeholder="Votre message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit">
+              <span class="btn-text">Envoyer le message</span>
+              <span class="btn-loader"></span>
+            </button>
+            <div class="form-status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Amrou Ben Abdessalem. Tous droits réservés.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
