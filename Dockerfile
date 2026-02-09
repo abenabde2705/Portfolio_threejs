@@ -1,5 +1,5 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -15,21 +15,8 @@ COPY . .
 # Build l'application
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine AS production
+# Exposer le port 3000
+EXPOSE 3000
 
-# Copier la configuration nginx personnalisée
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Copier les fichiers buildés depuis le stage précédent
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Exposer le port 80
-EXPOSE 80
-
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
-
-# Démarrer nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Démarrer le serveur de preview Vite
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "3000"]
