@@ -7,12 +7,12 @@
     <title>Amrou Ben Abdessalem - Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <a href="#" class="logo">AB</a>
+        <a href="#" class="logo">AB<span class="logo-tag">/dev</span></a>
         <ul class="nav-menu">
           <li><a href="#home" class="nav-link">Accueil</a></li>
           <li><a href="#about" class="nav-link">À propos</a></li>
@@ -27,33 +27,40 @@
 
     <section id="home" class="hero-section">
       <canvas id="threejs-canvas"></canvas>
+      <span class="bracket bracket-tl"></span>
+      <span class="bracket bracket-br"></span>
       <div class="hero-content">
         <div class="hero-text">
-          <span class="greeting">Hello, je suis</span>
-          <h1 class="name">Amrou</h1>
-          <p class="tagline">Développeur full-stack en alternance - Disponible en CDI <br/> (septembre 2026)</p>
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span class="status-label">STATUS: DISPONIBLE — CDI SEPT. 2026</span>
+            <span class="status-loc">PARIS, FR</span>
+          </div>
+          <h1 class="name">Amrou<br>Ben Abdessalem</h1>
+          <p class="tagline">Développeur Full-Stack .NET/React</p>
           <p class="description">Je conçois et je développe des applications web innovantes et performantes.
-            <br>De l'idée jusqu'au déploiement</p>
-          </p>
+            <br>De l'idée jusqu'au déploiement.</p>
           <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">Me contacter</a>
-            <a href="#projects" class="btn btn-secondary">Voir mes projets</a>
+            <a href="#projects" class="btn btn-secondary">Voir mes projets →</a>
           </div>
         </div>
       </div>
       <div class="scroll-indicator">
-        <span>Défiler</span>
+        <span class="scroll-coord">00.1</span>
         <div class="scroll-line"></div>
+        <span>SCROLL</span>
       </div>
     </section>
 
     <section id="about" class="section about-section">
       <div class="container">
+        <span class="eyebrow" data-animate>~/about</span>
         <h2 class="section-title" data-animate>À propos de moi</h2>
         <div class="about-content">
           <div class="about-text" data-animate>
             <p>Je suis un développeur full-stack passionné avec une expertise dans les technologies web modernes. Je me spécialise dans la création d'applications web interactives, performantes et visuellement impressionnantes.</p>
-            <p>J'ai eu l'opportunité de travailler chez AXA France dans le secteur téléphonie et service client, où j'ai contribué au pilotage et à la qualité d'appels en utilisant Genesys Cloud comme CRM. Cette expérience m'a permis de développer des compétences en gestion de la qualité et en optimisation des processus clients.</p>
+            <p>J'ai eu l'opportunité de travailler chez AXA France dans le secteur téléphonie et service client, où j'ai contribué au pilotage et à la qualité d'appels en utilisant Genesys Cloud. Cette expérience m'a permis de développer des compétences en gestion de la qualité et en optimisation des processus clients.</p>
             <p>Avec une solide base en développement frontend et backend, je donne vie aux idées grâce à un code propre et des solutions innovantes.</p>
           </div>
           <div class="about-stats">
@@ -73,6 +80,7 @@
 
     <section id="experience" class="section experience-section">
       <div class="container">
+        <span class="eyebrow" data-animate>~/experience</span>
         <h2 class="section-title" data-animate>Parcours & Expériences</h2>
         <div class="timeline">
           
@@ -82,7 +90,7 @@
               <div class="timeline-date">2024 - Présent</div>
               <h3>Développeur Full-Stack en Alternance</h3>
               <h4>AXA France - Paris</h4>
-              <p>Développement d'applications web en alternance chez AXA France. Contribution au pilotage et à la qualité d'appels dans le secteur téléphonie et service client. Utilisation de Genesys Cloud comme CRM pour optimiser les processus clients et améliorer la satisfaction client.</p>
+              <p>Développement d'applications web en alternance chez AXA France. Contribution au pilotage et à l'onboarding des agences dans le secteur téléphonie et service client. Utilisation de Genesys Cloud pour optimiser les processus clients et améliorer la satisfaction client.</p>
               <div class="timeline-tags">
                 <span>Genesys Cloud</span>
                 <span>Service Client</span>
@@ -95,7 +103,7 @@
           <div class="timeline-item" data-animate>
             <div class="timeline-dot"></div>
             <div class="timeline-content">
-              <div class="timeline-date">2023</div>
+              <div class="timeline-date">2024</div>
               <h3>Stage Développeur Web</h3>
               <h4>Wyze Academy</h4>
               <p>Stage de développement web où j'ai acquis les fondamentaux du développement frontend et backend. Participation à des projets concrets et apprentissage des bonnes pratiques de développement web moderne.</p>
@@ -112,6 +120,7 @@
 
     <section id="skills" class="section skills-section">
       <div class="container">
+        <span class="eyebrow" data-animate>~/stack</span>
         <h2 class="section-title" data-animate>Compétences & Technologies</h2>
         <div class="skills-grid">
           <div class="skill-category" data-animate>
@@ -159,6 +168,7 @@
 
     <section id="projects" class="section projects-section">
       <div class="container">
+        <span class="eyebrow" data-animate>~/projects</span>
         <h2 class="section-title" data-animate>Projets en vedette</h2>
         <div class="projects-grid">
          <div class="project-card" data-animate>
@@ -169,9 +179,10 @@
     </div>
   </a>
   <div class="project-info">
+    <div class="project-status status-live"><span class="dot"></span>LIVE</div>
     <h3>MaxAI</h3>
-    <p>Plateforme de coaching psychologique IA avec chatbot intelligent, système d'abonnement premium et tableau de bord analytique. 
-      Architecture full-stack React/Node.js avec PostgreSQL.</p> 
+    <p>Plateforme de coaching psychologique IA avec chatbot intelligent, système d'abonnement premium et tableau de bord analytique.
+      Architecture full-stack React/Node.js avec PostgreSQL.</p>
     <div class="project-tags">
       <span>React</span>
       <span>Node.js</span>
@@ -180,15 +191,16 @@
   </div>
 </div>
           <div class="project-card" data-animate>
-            <a href="#" class="project-image">
+            <a href="#home" class="project-image">
               <img src="/capture_portfolio.png" alt="Site Portfolio 3D">
               <div class="project-overlay">
                 <span class="view-project">Voir le projet →</span>
               </div>
             </a>
             <div class="project-info">
+              <div class="project-status status-live"><span class="dot"></span>LIVE</div>
               <h3>Site Portfolio 3D</h3>
-              <p>Portfolio interactif avec animations Three.js et effets WebGL</p>
+              <p>Portfolio interactif avec animations Three.js et effets WebGL — celui que tu es en train de regarder.</p>
               <div class="project-tags">
                 <span>Three.js</span>
                 <span>TypeScript</span>
@@ -197,13 +209,14 @@
             </div>
           </div>
           <div class="project-card" data-animate>
-            <a href="#" class="project-image">
+            <div class="project-image">
               <img src="/lyceeconnect.png" alt="Plateforme Nationale de Stages">
               <div class="project-overlay">
-                <span class="view-project">Voir le projet →</span>
+                <span class="view-project">Code source privé</span>
               </div>
-            </a>
+            </div>
             <div class="project-info">
+              <div class="project-status status-private"><span class="dot"></span>PRIVÉ</div>
               <h3>Plateforme Nationale de Stages</h3>
               <p>Application web de mise en relation entre lycées, étudiants et entreprises pour la recherche et le suivi de stages. Intégration du Design System de l'État (DSFR) et API sécurisées pour la gestion des profils, offres et candidatures.</p>
               <div class="project-tags">
@@ -220,19 +233,20 @@
 
     <section id="contact" class="section contact-section">
       <div class="container">
+        <span class="eyebrow" data-animate>~/contact</span>
         <h2 class="section-title" data-animate>Contactez-moi</h2>
         <div class="contact-content">
           <div class="contact-info" data-animate>
             <h3>Travaillons ensemble</h3>
             <p>Vous avez un projet en tête ? Discutons de la façon dont nous pouvons collaborer pour donner vie à vos idées.</p>
             <div class="contact-links">
-              <a href="mailto:amrou.benabdessalem.pro@gmail.com" class="contact-link">
+              <a href="mailto:amroubenabdessalem06@gmail.com" class="contact-link">
                 <span class="icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                   </svg>
                 </span>
-                <span>amrou.benabdessalem.pro@gmail.com</span>
+                <span>amroubenabdessalem06@gmail.com</span>
               </a>
               <a href="tel:+33668868390" class="contact-link">
                 <span class="icon">

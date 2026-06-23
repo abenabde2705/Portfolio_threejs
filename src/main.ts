@@ -46,104 +46,120 @@ document.querySelectorAll('a, button, .project-card').forEach(el => {
   })
 })
 
-// ==================== THREE.JS BACKGROUND ====================
+// ==================== THREE.JS HERO: SIGNAL NETWORK ====================
+// Sparse node-and-trace network, evoking call-routing topology rather than
+// a generic floating-particle blob.
 const canvas = document.getElementById('threejs-canvas') as HTMLCanvasElement
 
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-camera.position.z = 5
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000)
+camera.position.z = 9
 
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-// Create particle system with more dynamic colors
-const particlesGeometry = new THREE.BufferGeometry()
-const particlesCount = 5000
-const positions = new Float32Array(particlesCount * 3)
-const colors = new Float32Array(particlesCount * 3)
+const SIGNAL_COLOR = 0x5eead4
+const ALERT_COLOR = 0xff8a4c
 
-for (let i = 0; i < particlesCount * 3; i += 3) {
-  positions[i] = (Math.random() - 0.5) * 60
-  positions[i + 1] = (Math.random() - 0.5) * 60
-  positions[i + 2] = (Math.random() - 0.5) * 60
+// Node field: a sparse cloud of "routing" points
+const nodeCount = 90
+const nodePositions = new Float32Array(nodeCount * 3)
+const nodeVelocities: THREE.Vector3[] = []
 
-  const color = new THREE.Color()
-  color.setHSL(Math.random() * 0.4 + 0.55, 0.9, 0.6)
-  colors[i] = color.r
-  colors[i + 1] = color.g
-  colors[i + 2] = color.b
+for (let i = 0; i < nodeCount; i++) {
+  const x = (Math.random() - 0.5) * 18
+  const y = (Math.random() - 0.5) * 11
+  const z = (Math.random() - 0.5) * 8
+  nodePositions[i * 3] = x
+  nodePositions[i * 3 + 1] = y
+  nodePositions[i * 3 + 2] = z
+  nodeVelocities.push(new THREE.Vector3(
+    (Math.random() - 0.5) * 0.004,
+    (Math.random() - 0.5) * 0.004,
+    (Math.random() - 0.5) * 0.004
+  ))
 }
 
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+const nodesGeometry = new THREE.BufferGeometry()
+nodesGeometry.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3))
 
-const particlesMaterial = new THREE.PointsMaterial({
-  size: 0.06,
-  vertexColors: true,
+const nodesMaterial = new THREE.PointsMaterial({
+  size: 0.05,
+  color: SIGNAL_COLOR,
   transparent: true,
-  opacity: 0.9,
-  blending: THREE.AdditiveBlending,
+  opacity: 0.8,
+  sizeAttenuation: true,
 })
 
-const particles = new THREE.Points(particlesGeometry, particlesMaterial)
-scene.add(particles)
+const nodes = new THREE.Points(nodesGeometry, nodesMaterial)
+scene.add(nodes)
 
-// Add geometric wave
-const waveGeometry = new THREE.PlaneGeometry(20, 20, 50, 50)
-const waveMaterial = new THREE.MeshStandardMaterial({
-  color: 0x6366f1,
-  wireframe: true,
+// Connection lines: drawn between nodes within a link distance, recomputed each frame
+const LINK_DISTANCE = 3.2
+const MAX_LINKS = nodeCount * 6
+const linePositions = new Float32Array(MAX_LINKS * 2 * 3)
+const lineGeometry = new THREE.BufferGeometry()
+lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3))
+
+const lineMaterial = new THREE.LineBasicMaterial({
+  color: SIGNAL_COLOR,
   transparent: true,
-  opacity: 0.15,
+  opacity: 0.12,
 })
-const wave = new THREE.Mesh(waveGeometry, waveMaterial)
-wave.rotation.x = -Math.PI / 2
-wave.position.y = -2
-scene.add(wave)
 
-// Create floating geometric shapes
-const shapes: THREE.Mesh[] = []
-const geometries = [
-  new THREE.IcosahedronGeometry(0.5, 0),
-  new THREE.OctahedronGeometry(0.5, 0),
-  new THREE.TetrahedronGeometry(0.5, 0),
-]
+const lines = new THREE.LineSegments(lineGeometry, lineMaterial)
+scene.add(lines)
 
-for (let i = 0; i < 20; i++) {
-  const geometry = geometries[i % geometries.length]
-  const material = new THREE.MeshStandardMaterial({
-    color: new THREE.Color().setHSL(Math.random(), 0.7, 0.5),
-    wireframe: true,
-    transparent: true,
-    opacity: 0.4,
-  })
-  const shape = new THREE.Mesh(geometry, material)
-  
-  shape.position.set(
-    (Math.random() - 0.5) * 25,
-    (Math.random() - 0.5) * 25,
-    (Math.random() - 0.5) * 25
+function updateLinks() {
+  const positions = nodesGeometry.attributes.position.array as Float32Array
+  let linkIndex = 0
+
+  for (let i = 0; i < nodeCount && linkIndex < MAX_LINKS; i++) {
+    const ax = positions[i * 3]
+    const ay = positions[i * 3 + 1]
+    const az = positions[i * 3 + 2]
+
+    for (let j = i + 1; j < nodeCount && linkIndex < MAX_LINKS; j++) {
+      const bx = positions[j * 3]
+      const by = positions[j * 3 + 1]
+      const bz = positions[j * 3 + 2]
+
+      const dist = Math.hypot(ax - bx, ay - by, az - bz)
+      if (dist < LINK_DISTANCE) {
+        const o = linkIndex * 6
+        linePositions[o] = ax
+        linePositions[o + 1] = ay
+        linePositions[o + 2] = az
+        linePositions[o + 3] = bx
+        linePositions[o + 4] = by
+        linePositions[o + 5] = bz
+        linkIndex++
+      }
+    }
+  }
+
+  lineGeometry.setDrawRange(0, linkIndex * 2)
+  lineGeometry.attributes.position.needsUpdate = true
+}
+
+// A handful of brighter "active call" markers that pulse along the network
+const markerCount = 4
+const markerGeometry = new THREE.SphereGeometry(0.06, 12, 12)
+const markers: THREE.Mesh[] = []
+
+for (let i = 0; i < markerCount; i++) {
+  const material = new THREE.MeshBasicMaterial({ color: ALERT_COLOR, transparent: true, opacity: 0.9 })
+  const marker = new THREE.Mesh(markerGeometry, material)
+  marker.position.set(
+    (Math.random() - 0.5) * 18,
+    (Math.random() - 0.5) * 11,
+    (Math.random() - 0.5) * 8
   )
-  shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI)
-  
-  shapes.push(shape)
-  scene.add(shape)
+  markers.push(marker)
+  scene.add(marker)
 }
 
-// Enhanced lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6)
-scene.add(ambientLight)
-
-const pointLight1 = new THREE.PointLight(0x6366f1, 1.5)
-pointLight1.position.set(5, 5, 5)
-scene.add(pointLight1)
-
-const pointLight2 = new THREE.PointLight(0xec4899, 1)
-pointLight2.position.set(-5, -5, -5)
-scene.add(pointLight2)
-
-// Mouse movement effect
 let mouseMoveX = 0
 let mouseMoveY = 0
 
@@ -152,45 +168,41 @@ document.addEventListener('mousemove', (event) => {
   mouseMoveY = -(event.clientY / window.innerHeight) * 2 + 1
 })
 
-// Animation loop
 const clock = new THREE.Clock()
 
 function animate() {
   requestAnimationFrame(animate)
 
   const elapsedTime = clock.getElapsedTime()
+  const positions = nodesGeometry.attributes.position.array as Float32Array
 
-  // Rotate particles
-  particles.rotation.y = elapsedTime * 0.03
-  particles.rotation.x = elapsedTime * 0.02
+  for (let i = 0; i < nodeCount; i++) {
+    positions[i * 3] += nodeVelocities[i].x
+    positions[i * 3 + 1] += nodeVelocities[i].y
+    positions[i * 3 + 2] += nodeVelocities[i].z
 
-  // Animate wave
-  const wavePositions = waveGeometry.attributes.position.array as Float32Array
-  for (let i = 0; i < wavePositions.length; i += 3) {
-    const x = wavePositions[i]
-    const y = wavePositions[i + 1]
-    wavePositions[i + 2] = Math.sin(x * 0.5 + elapsedTime) * 0.3 + Math.cos(y * 0.5 + elapsedTime) * 0.3
+    if (Math.abs(positions[i * 3]) > 9) nodeVelocities[i].x *= -1
+    if (Math.abs(positions[i * 3 + 1]) > 5.5) nodeVelocities[i].y *= -1
+    if (Math.abs(positions[i * 3 + 2]) > 4) nodeVelocities[i].z *= -1
   }
-  waveGeometry.attributes.position.needsUpdate = true
+  nodesGeometry.attributes.position.needsUpdate = true
+  updateLinks()
 
-  // Animate shapes
-  shapes.forEach((shape, index) => {
-    shape.rotation.x += 0.003 * (index % 2 === 0 ? 1 : -1)
-    shape.rotation.y += 0.005
-    shape.position.y += Math.sin(elapsedTime + index) * 0.002
+  markers.forEach((marker, index) => {
+    const t = elapsedTime * 0.25 + index * 1.7
+    marker.position.x = Math.sin(t) * 7
+    marker.position.y = Math.cos(t * 0.8) * 4
+    marker.position.z = Math.sin(t * 0.5) * 3
+    const pulse = (Math.sin(elapsedTime * 2 + index) + 1) / 2
+    marker.scale.setScalar(0.7 + pulse * 0.6)
   })
 
-  // Camera follows mouse with easing
-  camera.position.x += (mouseMoveX * 0.8 - camera.position.x) * 0.03
-  camera.position.y += (mouseMoveY * 0.8 - camera.position.y) * 0.03
-  camera.lookAt(scene.position)
+  nodes.rotation.y = elapsedTime * 0.015
+  lines.rotation.y = elapsedTime * 0.015
 
-  // Animate lights
-  pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 7
-  pointLight1.position.z = Math.cos(elapsedTime * 0.5) * 7
-  
-  pointLight2.position.x = Math.cos(elapsedTime * 0.3) * 5
-  pointLight2.position.z = Math.sin(elapsedTime * 0.3) * 5
+  camera.position.x += (mouseMoveX * 0.6 - camera.position.x) * 0.02
+  camera.position.y += (mouseMoveY * 0.6 - camera.position.y) * 0.02
+  camera.lookAt(scene.position)
 
   renderer.render(scene, camera)
 }
@@ -290,15 +302,9 @@ let lastScroll = 0
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset
-  
-  if (currentScroll > 100) {
-    navbar.style.background = 'rgba(10, 10, 15, 0.95)'
-    navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)'
-  } else {
-    navbar.style.background = 'rgba(10, 10, 15, 0.8)'
-    navbar.style.boxShadow = 'none'
-  }
-  
+
+  navbar.classList.toggle('scrolled', currentScroll > 100)
+
   // Hide/show navbar on scroll
   if (currentScroll > lastScroll && currentScroll > 500) {
     navbar.style.transform = 'translateY(-100%)'
@@ -366,26 +372,28 @@ projectCards.forEach((card) => {
 // ==================== TEXT GLITCH EFFECT ====================
 const nameElement = document.querySelector('.name') as HTMLElement
 if (nameElement) {
-  const originalText = nameElement.textContent || ''
-  
+  const part1 = 'Amrou'
+  const part2 = 'Ben Abdessalem'
+  const fullText = part1 + part2
+
   nameElement.addEventListener('mouseenter', () => {
     let iterations = 0
     const interval = setInterval(() => {
-      nameElement.textContent = originalText
-        .split('')
-        .map((_char, index) => {
-          if (index < iterations) {
-            return originalText[index]
-          }
-          return String.fromCharCode(65 + Math.floor(Math.random() * 26))
-        })
-        .join('')
-      
-      if (iterations >= originalText.length) {
+      const chars = fullText.split('').map((_char, index) => {
+        if (index < iterations) return fullText[index]
+        return String.fromCharCode(65 + Math.floor(Math.random() * 26))
+      })
+
+      const s1 = chars.slice(0, part1.length).join('')
+      const s2 = chars.slice(part1.length).join('')
+      nameElement.innerHTML = `${s1}<br>${s2}`
+
+      iterations += 1 / 3
+
+      if (iterations >= fullText.length) {
         clearInterval(interval)
+        nameElement.innerHTML = `${part1}<br>${part2}`
       }
-      
-      iterations += 1/3
     }, 30)
   })
 }
